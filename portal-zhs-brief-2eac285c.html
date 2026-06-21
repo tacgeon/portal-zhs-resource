@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资料索引 | leyu 信息整理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5f9fc;
+            color: #1d2b3a;
+            line-height: 1.7;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+        /* header / hero */
+        .hero {
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid #b3d9d2;
+            padding-bottom: 1.2rem;
+        }
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0d3b3c;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+        .hero h1 span {
+            background: #d0e9e4;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #1b5b5c;
+        }
+        .hero .sub {
+            color: #3b6b6b;
+            font-size: 0.95rem;
+            margin-top: 0.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 1rem;
+        }
+        .hero .sub i {
+            font-style: normal;
+            background: #e2f0ed;
+            padding: 0 0.5rem;
+            border-radius: 12px;
+        }
+
+        /* 网格卡片 —— 资料卡片区 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        @media (min-width: 540px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.4rem 1.5rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 40, 40, 0.06);
+            border: 1px solid #ddede8;
+            transition: box-shadow 0.2s ease, transform 0.15s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(30, 80, 75, 0.08);
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: #115251;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .card h3::before {
+            content: '▹';
+            color: #479c94;
+            font-size: 1.2rem;
+        }
+        .card p {
+            font-size: 0.95rem;
+            color: #2f4a4a;
+            margin-bottom: 0.3rem;
+        }
+        .card .tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            background: #dff0ec;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            color: #0b4f4b;
+        }
+
+        /* 正文段落 */
+        .content-section {
+            margin: 2.2rem 0 1.8rem;
+        }
+        .content-section p {
+            margin-bottom: 1.2rem;
+        }
+        .content-section .lead {
+            font-size: 1.05rem;
+            background: #e3f2ee;
+            padding: 0.8rem 1.2rem;
+            border-radius: 28px;
+            color: #103e3d;
+        }
+        .content-section blockquote {
+            margin: 1.5rem 0;
+            padding: 0.8rem 1.2rem 0.8rem 1.8rem;
+            border-left: 5px solid #3d9b92;
+            background: #eaf6f3;
+            border-radius: 0 18px 18px 0;
+            font-style: normal;
+            color: #1e4d4a;
+        }
+        .content-section blockquote p {
+            margin: 0.2rem 0;
+        }
+        .content-section blockquote footer {
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            color: #3b7672;
+        }
+
+        /* 引用提示 / 附注 */
+        .note-box {
+            background: #f0f8f5;
+            border: 1px solid #b7d9d2;
+            border-radius: 28px;
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .note-box::before {
+            content: '📌';
+            font-size: 1.2rem;
+        }
+        .note-box strong {
+            color: #105855;
+        }
+
+        /* 访问句 */
+        .visit-sentence {
+            background: white;
+            border-radius: 60px;
+            padding: 0.9rem 1.8rem;
+            box-shadow: 0 2px 10px rgba(30, 80, 70, 0.04);
+            border: 1px solid #cce3dd;
+            margin: 2.2rem 0 1.8rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .visit-sentence a {
+            color: #166b64;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #7dc1b8;
+            padding-bottom: 0.08rem;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .visit-sentence a:hover {
+            color: #0b4f49;
+            border-bottom-color: #0b4f49;
+        }
+
+        /* 附加信息 / 摘要 */
+        .faq-mini {
+            margin: 2rem 0 1rem;
+            padding: 0.2rem 0;
+        }
+        .faq-mini details {
+            border-bottom: 1px dashed #c7dbd5;
+            padding: 0.8rem 0;
+        }
+        .faq-mini details summary {
+            font-weight: 500;
+            cursor: pointer;
+            color: #155c56;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .faq-mini details summary::before {
+            content: '❓';
+            font-size: 0.9rem;
+        }
+        .faq-mini details p {
+            margin: 0.6rem 0 0.2rem 1.6rem;
+            color: #2d5b58;
+            font-size: 0.93rem;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #cce0da;
+            font-size: 0.85rem;
+            color: #43726e;
+            text-align: center;
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .visit-sentence {
+                border-radius: 32px;
+                padding: 0.8rem 1rem;
+            }
+            .note-box {
+                border-radius: 20px;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <header class="hero">
+        <h1>
+            整理·索引
+            <span>leyu 资料</span>
+        </h1>
+        <div class="sub">
+            <span>信息归档 · 结构说明</span>
+            <i>2025-04</i>
+        </div>
+    </header>
+
+    <!-- 导语 / 文章标题区域 -->
+    <div class="content-section">
+        <p class="lead">
+            从资料整理的角度来说，保持源头的清晰索引比收藏大量碎片更有效。
+            本篇围绕平台 <a href="https://portal-zhs-leyu.com" style="color:#166b64; font-weight:500; text-decoration:underline; text-underline-offset:3px;">leyu</a> 整理了几组功能面向与使用场景，方便按需查阅。
+        </p>
+    </div>
+
+    <!-- 网格卡片 — 特点与场景 -->
+    <div class="card-grid">
+        <div class="card">
+            <h3>信息聚合</h3>
+            <p>将常用模块、通知与更新整合至统一面板，减少多页面跳转的时间成本。</p>
+            <span class="tag">仪表盘</span>
+        </div>
+        <div class="card">
+            <h3>筛选逻辑</h3>
+            <p>分类标签与时间轴双维度筛选，适合需要回溯历史记录或按主题浏览的用户。</p>
+            <span class="tag">筛选·归档</span>
+        </div>
+        <div class="card">
+            <h3>权限分层</h3>
+            <p>不同角色所见的模块与数据范围可独立配置，适合团队或组织内部分工。</p>
+            <span class="tag">权限管理</span>
+        </div>
+        <div class="card">
+            <h3>导出与快照</h3>
+            <p>支持将当前视图内容导出为结构化文件，便于本地备份或离线分析。</p>
+            <span class="tag">数据导出</span>
+        </div>
+    </div>
+
+    <!-- 多段正文 + 引用 -->
+    <div class="content-section">
+        <p>
+            在早期的使用反馈中，不少用户提到「进入平台后首先想看到的是自己关注的内容概览」。
+            <a href="https://portal-zhs-leyu.com" style="color:#166b64; font-weight:500; text-decoration:underline; text-underline-offset:3px;">leyu</a> 的信息架构围绕「面板 + 抽屉」展开：主面板承载高频操作与摘要，侧边抽屉存放扩展信息与设置。
+            这样的布局让初次接触的人也能较快定位到常用入口。
+        </p>
+        <p>
+            从索引的习惯来看，理解模块之间的关联比死记位置更有帮助。例如「通知中心」与「动态记录」实际上共享同一套时间线筛选，调整筛选条件后两边同时更新。
+            这种设计减少了重复设置，也降低了认知负担。
+        </p>
+
+        <blockquote>
+            <p>记录和索引的意义不在于收集所有信息，而在于当你想找某件事时，能知道它大概在什么位置。</p>
+            <footer>—— 内部文档摘录 · 2025</footer>
+        </blockquote>
+
+        <p>
+            如果你习惯用标签或关键词来管理信息，可以在个人设置中开启「快速过滤」模式，之后在任意列表页都能直接键入筛选，无需每次都展开高级搜索。
+            这一功能在移动端同样可用，且筛选条件会保留在会话中。
+        </p>
+    </div>
+
+    <!-- 引用提示 -->
+    <div class="note-box">
+        <div>
+            <strong>整理提示：</strong> 建议将常用的筛选条件保存为「视图方案」，方便在不同设备间同步。
+            部分视图方案在 <a href="https://portal-zhs-leyu.com" style="color:#166b64; font-weight:500; text-decoration:underline;">leyu</a> 中可作为快速入口固定在侧栏。
+        </div>
+    </div>
+
+    <!-- 访问句（自然嵌入链接，文本恰好是 leyu） -->
+    <div class="visit-sentence">
+        你可以在 <a href="https://portal-zhs-leyu.com">leyu</a> 中直接体验上述整合面板与索引方式，无需额外配置。
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+        <details>
+            <summary>如何看到所有可用的视图方案？</summary>
+            <p>登录后进入「个人偏好」→「视图管理」，系统会列出已保存的方案以及推荐模板。每个方案都附有简短说明和预览缩略图。</p>
+        </details>
+        <details>
+            <summary>导出功能是否包含附件？</summary>
+            <p>当前版本的导出仅包含文本与结构化元数据。附件可通过单独的「批量下载」工具获取，该工具位于对应模块的更多菜单中。</p>
+        </details>
+        <details>
+            <summary>权限分层支持多少种角色？</summary>
+            <p>默认提供四种预设角色，同时允许自定义角色并逐项勾选权限。具体数量没有硬性上限，但建议保持角色在 10 个以内以便管理。</p>
+        </details>
+    </div>
+
+    <footer>
+        <span>资料索引页 · 基于实际使用流程整理</span><br>
+        <span style="opacity:0.7;">内容仅供参考，具体功能以实际界面为准</span>
+    </footer>
+</div>
+</body>
+</html>
